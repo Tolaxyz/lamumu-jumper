@@ -1,13 +1,15 @@
-* {
-  box-sizing: border-box;
-}
-
+/* Reset and prevent scrolling */
+html,
 body {
   margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
   background: #f4f4f4;
   font-family: sans-serif;
 }
 
+/* Game container takes full screen */
 .game-container {
   position: relative;
   width: 100%;
@@ -17,7 +19,7 @@ body {
   border: 2px solid #ccc;
 }
 
-/* Character and Obstacle */
+/* Character & Obstacle */
 .character {
   position: absolute;
   width: 12vw;
@@ -35,7 +37,7 @@ body {
   right: -10vw;
 }
 
-/* Score Display */
+/* Score */
 .score {
   position: absolute;
   top: 10px;
@@ -82,7 +84,7 @@ body {
   transform: scale(1.1);
 }
 
-/* Game Title */
+/* Game title — force Comic Sans */
 #gameText {
   position: absolute;
   top: 80px;
@@ -102,7 +104,7 @@ body {
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-family: "Comic Sans MS", cursive;
+  font-family: "Comic Sans MS", cursive, sans-serif;
   font-size: clamp(24px, 6vw, 48px);
   font-weight: bold;
   color: yellow;
@@ -110,7 +112,7 @@ body {
   z-index: 10;
 }
 
-/* Restart Button */
+/* Restart button */
 .restart-button {
   position: absolute;
   top: 55%;
@@ -118,7 +120,7 @@ body {
   transform: translate(-50%, -50%);
   padding: 0.5em 1em;
   font-size: clamp(16px, 4vw, 24px);
-  font-family: "Comic Sans MS", cursive;
+  font-family: "Comic Sans MS", cursive, sans-serif;
   font-weight: bold;
   color: white;
   background-color: rgb(126, 122, 121);
@@ -138,7 +140,7 @@ body {
   display: none;
 }
 
-/* Mobile-specific adjustments */
+/* Mobile tweaks */
 @media (max-width: 768px) {
   .character {
     width: 20vw;

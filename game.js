@@ -13,7 +13,7 @@ let score = 0;
 let obstacleLeft = 1000;
 let animationFrameId = null;
 
-// Jump function
+// Jump
 function jump() {
   if (isJumping || isPaused || !isGameStarted) return;
   isJumping = true;
@@ -40,21 +40,19 @@ function jump() {
   }, 20);
 }
 
-// Desktop: Space or ArrowUp
+// Keyboard jump
 document.addEventListener("keydown", (e) => {
-  if (e.code === "Space" || e.code === "ArrowUp") {
-    jump();
-  }
+  if (e.code === "Space" || e.code === "ArrowUp") jump();
 });
 
-// Mobile: Tap character
+// Mobile jump
 character.addEventListener("click", jump);
 character.addEventListener("touchstart", (e) => {
   e.preventDefault();
   jump();
 });
 
-// Start game
+// Start
 startBtn.addEventListener("click", () => {
   if (!isGameStarted) {
     isGameStarted = true;
@@ -75,12 +73,8 @@ pauseBtn.addEventListener("click", () => {
   if (!isGameStarted) return;
   isPaused = !isPaused;
   pauseBtn.textContent = isPaused ? "Resume" : "Pause";
-
-  if (!isPaused) {
-    moveObstacle();
-  } else {
-    cancelAnimationFrame(animationFrameId);
-  }
+  if (!isPaused) moveObstacle();
+  else cancelAnimationFrame(animationFrameId);
 });
 
 // End game
@@ -93,7 +87,7 @@ function endGame() {
   restartBtn.classList.remove("hidden");
 }
 
-// Move obstacle
+// Obstacle movement
 function moveObstacle() {
   if (isPaused || !isGameStarted) return;
 
@@ -119,7 +113,7 @@ function moveObstacle() {
   }
 }
 
-// Restart game
+// Restart
 restartBtn.addEventListener("click", () => {
   isGameStarted = true;
   isPaused = false;
