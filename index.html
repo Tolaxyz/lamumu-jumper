@@ -2,27 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
-    <title>Lamumu Jumper</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lamumu</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div id="mobile-warning">
+      This game is best experienced on a desktop or PC. Please switch to a
+      larger screen.
+    </div>
     <div class="game-container" id="game">
-      <img
-        src="images/character.png"
-        id="character"
-        class="character"
-        alt="Lamumu"
-      />
-      <img
-        src="images/obstacle.png"
-        id="obstacle"
-        class="obstacle"
-        alt="Obstacle"
-      />
+      <img src="images/character.png" id="character" class="character" />
+      <img src="images/obstacle.png" id="obstacle" class="obstacle" />
 
       <div class="score" id="score">Mooooo score: 0</div>
       <div id="gameOverText" class="game-over hidden">
@@ -30,9 +21,8 @@
       </div>
       <button id="restartBtn" class="restart-button hidden">Start Again</button>
     </div>
-
     <button id="startBtn">Start Game</button>
-    <button id="pauseBtn" disabled>Pause</button>
+    <button id="pauseBtn">Pause</button>
     <div id="gameText">Lamumudotxyz jumper!</div>
 
     <script src="game.js"></script>

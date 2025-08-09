@@ -1,126 +1,119 @@
-/* Reset and prevent scrolling */
-html,
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow: hidden;
   background: #f4f4f4;
   font-family: sans-serif;
 }
 
-/* Game container takes full screen */
 .game-container {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100vh; /* use full viewport height */
   background-size: cover;
   overflow: hidden;
   border: 2px solid #ccc;
 }
 
-/* Character & Obstacle */
 .character {
   position: absolute;
-  width: 12vw;
-  max-width: 150px;
+  width: 150px;
   bottom: 0;
-  left: 5vw;
-  touch-action: manipulation;
+  left: 50px;
 }
 
 .obstacle {
   position: absolute;
-  width: 8vw;
-  max-width: 100px;
+  width: 100px;
   bottom: 0;
-  right: -10vw;
+  right: -50px;
 }
 
-/* Score */
 .score {
   position: absolute;
   top: 10px;
   left: 10px;
-  font-size: clamp(16px, 3vw, 30px);
+  font-size: 30px;
+  font-family: sans-serif;
   font-weight: bold;
   color: rgb(126, 122, 121);
 }
-
-/* Buttons */
-#pauseBtn,
-#startBtn {
-  position: absolute;
-  padding: 0.5em 1em;
-  font-size: clamp(14px, 2vw, 18px);
-  cursor: pointer;
-  border-radius: 20px;
-  border: none;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-}
-
 #pauseBtn {
+  position: absolute;
   top: 10px;
   right: 10px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 20px;
   background-color: #333;
   color: white;
+  border: none;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease; /* Smooth transition */
 }
-
-#pauseBtn:hover {
-  background-color: #555;
-  transform: scale(1.1);
-}
-
-#startBtn {
-  top: 60px;
-  right: 30px;
-  background-color: #28a745;
-  color: white;
-}
-
-#startBtn:hover {
-  background-color: #218838;
-  transform: scale(1.1);
-}
-
-/* Game title — force Comic Sans */
 #gameText {
   position: absolute;
   top: 80px;
   width: 100%;
   text-align: center;
   font-family: "Comic Sans MS", cursive, sans-serif;
-  font-size: clamp(28px, 8vw, 100px);
+  font-size: 100px;
   font-weight: bold;
   color: rgb(126, 122, 121);
   text-shadow: 1px 1px 2px black;
   z-index: 10;
 }
+#pauseBtn:hover {
+  background-color: #555;
+  transform: scale(1.1); /* Grows slightly */
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5); /* Stronger shadow */
+}
+#startBtn {
+  position: absolute;
+  top: 60px;
+  right: 30px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
 
-/* Game Over Text */
+#startBtn:hover {
+  background-color: #218838;
+  transform: scale(1.1);
+}
 .game-over {
   position: absolute;
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-family: "Comic Sans MS", cursive, sans-serif;
-  font-size: clamp(24px, 6vw, 48px);
+  font-family: "Comic Sans MS", cursive;
+  font-size: 48px;
   font-weight: bold;
   color: yellow;
   text-shadow: 2px 2px black;
   z-index: 10;
 }
 
-/* Restart button */
+.hidden {
+  display: none;
+}
 .restart-button {
   position: absolute;
   top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 0.5em 1em;
-  font-size: clamp(16px, 4vw, 24px);
-  font-family: "Comic Sans MS", cursive, sans-serif;
+  padding: 10px 20px;
+  font-size: 20px;
+  font-family: "Comic Sans MS", cursive;
   font-weight: bold;
   color: white;
   background-color: rgb(126, 122, 121);
@@ -139,16 +132,52 @@ body {
 .hidden {
   display: none;
 }
+/* Default: show game, hide message */
+.desktop-game {
+  display: block;
+}
+.mobile-message {
+  display: none;
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
 
-/* Mobile tweaks */
-@media (max-width: 768px) {
-  .character {
-    width: 20vw;
+/* On small screens: hide game, show message */
+@media screen and (max-width: 768px) {
+  .desktop-game {
+    display: none;
   }
-  .obstacle {
-    width: 15vw;
+  .mobile-message {
+    display: block;
   }
-  .score {
-    font-size: 5vw;
+}
+#mobile-warning {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  color: white;
+  font-size: 24px;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  padding-top: 40vh;
+  box-sizing: border-box;
+}
+
+/* Show warning and hide game only on small screens */
+@media screen and (max-width: 768px) {
+  #mobile-warning {
+    display: block;
+  }
+
+  #game-container {
+    display: none !important;
   }
 }

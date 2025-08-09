@@ -13,7 +13,7 @@ let score = 0;
 let obstacleLeft = 1000;
 let animationFrameId = null;
 
-// Jump
+// Jump logic
 function jump() {
   if (isJumping || isPaused || !isGameStarted) return;
   isJumping = true;
@@ -40,25 +40,20 @@ function jump() {
   }, 20);
 }
 
-// Keyboard jump
+// Handle keyboard input
 document.addEventListener("keydown", (e) => {
-  if (e.code === "Space" || e.code === "ArrowUp") jump();
+  if (e.code === "Space" || e.code === "ArrowUp") {
+    jump();
+  }
 });
 
-// Mobile jump
-character.addEventListener("click", jump);
-character.addEventListener("touchstart", (e) => {
-  e.preventDefault();
-  jump();
-});
-
-// Start
+// Start game button
 startBtn.addEventListener("click", () => {
   if (!isGameStarted) {
     isGameStarted = true;
     isPaused = false;
     score = 0;
-    obstacleLeft = window.innerWidth;
+    obstacleLeft = 1000;
     scoreDisplay.textContent = "Score: 0";
     gameOverText.classList.add("hidden");
     restartBtn.classList.add("hidden");
@@ -68,16 +63,21 @@ startBtn.addEventListener("click", () => {
   }
 });
 
-// Pause / Resume
+// Pause/Resume button
 pauseBtn.addEventListener("click", () => {
   if (!isGameStarted) return;
+
   isPaused = !isPaused;
   pauseBtn.textContent = isPaused ? "Resume" : "Pause";
-  if (!isPaused) moveObstacle();
-  else cancelAnimationFrame(animationFrameId);
+
+  if (!isPaused) {
+    moveObstacle(); // Resume loop
+  } else {
+    cancelAnimationFrame(animationFrameId);
+  }
 });
 
-// End game
+// End game function
 function endGame() {
   isPaused = true;
   isGameStarted = false;
@@ -91,40 +91,41 @@ function endGame() {
 function moveObstacle() {
   if (isPaused || !isGameStarted) return;
 
-  if (obstacleLeft < -obstacle.offsetWidth) {
-    obstacleLeft = window.innerWidth;
+  if (obstacleLeft < -60) {
+    obstacleLeft = 1000;
     score++;
     scoreDisplay.textContent = "Score: " + score;
   } else {
-    obstacleLeft -= Math.max(5, window.innerWidth / 200);
+    obstacleLeft -= 10;
   }
 
   obstacle.style.left = obstacleLeft + "px";
 
+  // Collision detection
   const characterBottom = parseInt(window.getComputedStyle(character).bottom);
-  if (
-    obstacleLeft < character.offsetLeft + character.offsetWidth - 20 &&
-    obstacleLeft > character.offsetLeft &&
-    characterBottom < 60
-  ) {
+  if (obstacleLeft < 110 && obstacleLeft > 40 && characterBottom < 60) {
     endGame();
   } else {
     animationFrameId = requestAnimationFrame(moveObstacle);
   }
 }
 
-// Restart
+//  Restart game button — PLACED OUTSIDE ANY FUNCTION
 restartBtn.addEventListener("click", () => {
+  // Reset game state
   isGameStarted = true;
   isPaused = false;
   score = 0;
-  obstacleLeft = window.innerWidth;
+  obstacleLeft = 1000;
   character.style.bottom = "0px";
-  obstacle.style.left = window.innerWidth + "px";
+  obstacle.style.left = "1000px";
   scoreDisplay.textContent = "Score: 0";
+
+  // Hide UI elements
   gameOverText.classList.add("hidden");
   restartBtn.classList.add("hidden");
   pauseBtn.disabled = false;
   pauseBtn.textContent = "Pause";
+
   moveObstacle();
 });
