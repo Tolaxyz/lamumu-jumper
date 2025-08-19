@@ -79,7 +79,7 @@ body {
   font-size: 16px;
   cursor: pointer;
   border-radius: 20px;
-  background-color: #28a745;
+  background-color: #4e28a7;
   color: white;
   border: none;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
@@ -87,7 +87,7 @@ body {
 }
 
 #startBtn:hover {
-  background-color: #218838;
+  background-color: #28b9f3;
   transform: scale(1.1);
 }
 .game-over {
@@ -98,7 +98,7 @@ body {
   font-family: "Comic Sans MS", cursive;
   font-size: 48px;
   font-weight: bold;
-  color: yellow;
+  color: rgb(255, 30, 0);
   text-shadow: 2px 2px black;
   z-index: 10;
 }
